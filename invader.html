@@ -523,7 +523,7 @@
         ctx.fillStyle = "blue";
         ctx.fillText('Play Again? Reload the Page!', 270, 520);
         document.getElementById("js-share-button").style.display = "block";
-        document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://twitter.com/home&text=インベーダーゲームで遊んだよ！スコア：${gameController.score}&hashtags=xhack勉強会,web開発塾`
+        document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://invader-niko.herokuapp.com/&text=インベーダーゲームで遊んだよ！スコア：${gameController.score}&hashtags=xhack勉強会,web開発塾`
       }
 
       gameOver () {
@@ -547,7 +547,7 @@
         this.setKeyAction();
         document.getElementById("js-header").style.display = "none";
         document.getElementById("js-share-button").style.display = "block";
-        document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://twitter.com/home&text=インベーダーゲームで遊んだよ！ SCORE：${gameController.score}&hashtags=xhack勉強会,web開発塾`
+        document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://invader-niko.herokuapp.com/&text=インベーダーゲームで遊んだよ！ SCORE：${gameController.score}&hashtags=xhack勉強会,web開発塾`
       }
 
       countDown () {

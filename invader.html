@@ -295,7 +295,7 @@
         let distY = Math.abs(this.y - obj.y);
 
         if (distX < 20 && distY < 30) {
-          console.log("敵に当たった");
+          // console.log("敵に当たった");
           gameController.addScore();
           // 弾を消す
           this.x = -1000;
@@ -333,7 +333,7 @@
         let distY = Math.abs(chara.y - obj.y);
 
         if (distX < 30 && distY < 30) {
-          console.log("当たった");
+          // console.log("当たった");
           chara.hp -= 2;
           // console.log(chara.hp)
           // 弾を消す
@@ -512,7 +512,7 @@
         }
       }
 
-      end() {
+      end () {
         this.gameState = 'end'
         invaderGroup = []
         gameObjects = []
@@ -529,12 +529,24 @@
         ctx.font = '24pt DotGothic16';
         ctx.fillStyle = "blue";
         ctx.fillText('Play Again? Reload the Page!', 270, 520);
+
+         // デッカちゃん表示
+        const image = new Image();
+        image.src = './assets/images/de1.png';
+        image.onload = () => {
+          ctx.drawImage(image, 10, 300, 250, 250);
+          ctx.drawImage(image, 700, 300, 250, 250);
+        };
+        ctx.font = '24pt DotGothic16';
+        ctx.fillStyle = "white";
+        ctx.fillText('やったちゃんだよ', 30, 300);
+        ctx.fillText('やったちゃんだよ', 700, 300);
+
         document.getElementById("js-share-button").style.display = "block";
         document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://invader-niko.herokuapp.com/&text=インベーダーゲームで遊んだよ！スコア：${gameController.score}&hashtags=xhack勉強会,web開発塾`
       }
 
       gameOver () {
-        console.log('game over')
         this.pause();
         ctx.fillRect(0, 0, 1000, 600);
         ctx.fillStyle = 'black';
@@ -552,22 +564,31 @@
         gameObjects = [];
         this.gameState = 'gameOver';
         this.setKeyAction();
+
+        // デッカちゃん表示
+        const image = new Image();
+        image.src = './assets/images/de2.png';
+        image.onload = () => {
+          ctx.drawImage(image, 10, 300, 250, 250);
+        };
+        ctx.font = '24pt DotGothic16';
+        ctx.fillStyle = "white";
+        ctx.fillText('つらっちゃんだよ', 30, 300);
+
         document.getElementById("js-header").style.display = "none";
         document.getElementById("js-share-button").style.display = "block";
         document.getElementById("js-share-button").href = `http://twitter.com/share?url=https://invader-niko.herokuapp.com/&text=インベーダーゲームで遊んだよ！ SCORE：${gameController.score}&hashtags=xhack勉強会,web開発塾`
       }
 
       countDown () {
-        console.log(this.gameState)
+        // console.log(this.gameState)
         this.countDownId = setInterval(() => {
           this.timer -= 1;
           document.getElementById('js-timer').textContent = this.timer;
           if (this.timer <= 0 && this.gameState === 'none') {
             clearInterval(this.countDownId);
-            // this.gameOver()
             this.gameState = "gameOver"
           } else if (this.gameState === 'continue') {
-            console.log('continue')
             clearInterval(this.countDownId);
           }
         }, 1000);
@@ -584,19 +605,16 @@
         // GameObjectの描画処理と、判定処理などはupdateの中に書く
         obj.update();
       });
-      // gameController.changeScore();
+
       let requestId = null
 
       if (invaderGroup.length === 0 && gameController.gameState === 'none') {
-        console.log("クリア");
         gameController.pause()
         gameController.continueOrEnd()
       } else if (gameController.gameState === 'gameOver') {
-        console.log('end')
         gameController.gameOver()
         window.cancelAnimationFrame(requestId);
       } else {
-        // console.log('続く')
         requestId = window.requestAnimationFrame(mainLoop)
       }
     }
